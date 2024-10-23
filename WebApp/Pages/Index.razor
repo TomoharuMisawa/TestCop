@@ -1,0 +1,88 @@
+@page "/"
+@using WebApp.Pages
+
+<h3>Arithmetic Operations</h3>
+
+<div>
+    <label>Value 1:</label>
+    <input @bind="Value1" />
+</div>
+<div>
+    <label>Value 2:</label>
+    <input @bind="Value2" />
+</div>
+<div>
+    <button @onclick="PerformAddition">Add</button>
+    <button @onclick="PerformSubtraction">Subtract</button>
+    <button @onclick="PerformMultiplication">Multiply</button>
+    <button @onclick="PerformDivision">Divide</button>
+</div>
+<div>
+    <p>Result: @Result</p>
+</div>
+
+@code {
+    private string Value1 { get; set; }
+    private string Value2 { get; set; }
+    private string Result { get; set; }
+
+    private void PerformAddition()
+    {
+        if (IsValidInput(Value1, Value2, out double val1, out double val2))
+        {
+            Result = (val1 + val2).ToString();
+        }
+        else
+        {
+            Result = "🙅";
+        }
+    }
+
+    private void PerformSubtraction()
+    {
+        if (IsValidInput(Value1, Value2, out double val1, out double val2))
+        {
+            Result = (val1 - val2).ToString();
+        }
+        else
+        {
+            Result = "🙅";
+        }
+    }
+
+    private void PerformMultiplication()
+    {
+        if (IsValidInput(Value1, Value2, out double val1, out double val2))
+        {
+            Result = (val1 * val2).ToString();
+        }
+        else
+        {
+            Result = "🙅";
+        }
+    }
+
+    private void PerformDivision()
+    {
+        if (IsValidInput(Value1, Value2, out double val1, out double val2))
+        {
+            if (val2 != 0)
+            {
+                Result = (val1 / val2).ToString();
+            }
+            else
+            {
+                Result = "🙅";
+            }
+        }
+        else
+        {
+            Result = "🙅";
+        }
+    }
+
+    private bool IsValidInput(string value1, string value2, out double val1, out double val2)
+    {
+        return double.TryParse(value1, out val1) && double.TryParse(value2, out val2);
+    }
+}
